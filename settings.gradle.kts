@@ -6,5 +6,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "CustomEntityAPI"
+rootProject.name = "customentityapi"
 

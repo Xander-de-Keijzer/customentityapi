@@ -4,6 +4,7 @@ import net.minecraft.core.Rotations
 import nl.xanderwander.customentityapi.Main
 import nl.xanderwander.customentityapi.entities.handlers.Registrable
 import nl.xanderwander.customentityapi.packets.*
+import nl.xanderwander.customentityapi.utils.Utils.Companion.distSqr
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import kotlin.random.Random
@@ -44,7 +45,7 @@ open class Entity(
 
     fun moveTo(newLoc: Location) {
         if (newLoc == loc) return
-        if (loc.distanceSquared(newLoc) > 49 /*7*/ || correctionCount > 60 || newLoc.distanceSquared(lastCorrectLocation) * 2 > Main.VD_SQR) {
+        if (loc.distSqr(newLoc) > 49 /*7*/ || correctionCount > 60 || newLoc.distSqr(lastCorrectLocation) * 2 > Main.VD_SQR) {
             correction(newLoc)
             correctionCount = 0
         } else {
