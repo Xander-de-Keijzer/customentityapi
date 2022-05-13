@@ -2,8 +2,10 @@ package nl.xanderwander.customentityapi.entities
 
 import net.minecraft.core.Rotations
 import nl.xanderwander.customentityapi.packets.PacketSetEquipment
+import nl.xanderwander.customentityapi.packets.PacketSetPassengers
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 class Model(
@@ -36,6 +38,11 @@ class Model(
         set(value) { field = value; updateEquipment() }
     var boots: ItemStack = boots
         set(value) { field = value; updateEquipment() }
+
+    override fun addViewer(player: Player) {
+        super.addViewer(player)
+        PacketSetEquipment(this).send(player)
+    }
 
     private fun updateEquipment() {
         PacketSetEquipment(this).send(viewers)

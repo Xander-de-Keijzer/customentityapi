@@ -55,7 +55,7 @@ open class Entity(
         loc = newLoc
     }
 
-    open fun correction(newLoc: Location) {
+    protected open fun correction(newLoc: Location) {
         val block = newLoc.toBlockLocation()
         PacketTeleportEntity(id, block).send(viewers)
         PacketMoveEntity(id, block, newLoc).send(viewers)
@@ -73,14 +73,10 @@ open class Entity(
         PacketRemoveMob(this).send(player)
     }
 
-    override fun pluginDisabled() {
-        viewers.forEach { viewer -> PacketRemoveMob(this).send(viewer) }
-    }
-
-    open fun destroy() {
+    open fun destroy(unregister: Boolean = true) {
         viewers.forEach { viewer -> PacketRemoveMob(this).send(viewer) }
         viewers.clear()
-        unregister()
+        if (unregister) unregister()
     }
 
     private fun updateSettings() {

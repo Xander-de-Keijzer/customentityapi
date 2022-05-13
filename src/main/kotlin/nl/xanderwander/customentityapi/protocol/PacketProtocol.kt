@@ -1,7 +1,6 @@
 package nl.xanderwander.customentityapi.protocol
 
 import io.netty.channel.Channel
-import nl.xanderwander.customentityapi.packets.Packet
 import nl.xanderwander.customentityapi.protocol.objects.PacketContainer
 import nl.xanderwander.customentityapi.protocol.reflection.TinyProtocol
 import org.bukkit.entity.Player

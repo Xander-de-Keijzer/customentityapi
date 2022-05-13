@@ -24,8 +24,9 @@ class Region(val region: String): Registrable<Region>() {
         super.remViewer(player)
     }
 
-    override fun pluginDisabled() {
-        entities.forEach { entity -> entity.destroy() }
+    override fun destroy(): Region {
+        entities.forEach { entity -> entity.destroy(false) }
+        return super.destroy()
     }
 
 }

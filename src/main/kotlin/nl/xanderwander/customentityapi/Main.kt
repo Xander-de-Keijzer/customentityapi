@@ -1,18 +1,13 @@
 package nl.xanderwander.customentityapi
 
-import nl.xanderwander.customentityapi.entities.Entity
 import nl.xanderwander.customentityapi.entities.Model
 import nl.xanderwander.customentityapi.entities.Seat
 import nl.xanderwander.customentityapi.entities.handlers.EntityManager
 import nl.xanderwander.customentityapi.utils.WorldGuardHook
 import nl.xanderwander.customentityapi.protocol.PacketProtocol
+import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.command.Command
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.scheduler.BukkitRunnable
-import kotlin.math.abs
 
 class Main: JavaPlugin() {
 
@@ -22,7 +17,7 @@ class Main: JavaPlugin() {
         val entityManager = EntityManager()
         val worldGuard = WorldGuardHook()
 
-        private const val VIEW_DISTANCE = 10
+        private const val VIEW_DISTANCE = 100
         const val VD_SQR = VIEW_DISTANCE * VIEW_DISTANCE
     }
 

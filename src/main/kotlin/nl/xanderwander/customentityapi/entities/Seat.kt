@@ -33,22 +33,30 @@ class Seat(
     init {
 
         Main.protocol.onInPacket onInPacket@ { container ->
+
             val packet = container.packet
             val player = container.player ?: return@onInPacket
+
+            // Entity click listener
             if (packet is ServerboundInteractPacket) {
                 if (packet.entityId == id) setPassenger(player)
             }
+
+            // Entity dismount listener
             if (packet is ServerboundPlayerInputPacket) {
                 if (player == passenger) {
                     if (packet.isShiftKeyDown) remPassenger()
                 }
             }
+
+            // Player location correction listener
             if (packet is ServerboundMovePlayerPacket) {
                 if (player == passenger) {
                     passengerYaw = packet.yRot
                     passengerPitch = packet.xRot
                 }
             }
+
         }
 
         Main.protocol.onOutPacket onOutPacket@ { container ->
@@ -60,19 +68,19 @@ class Seat(
     }
 
     fun setPassenger(player: Player) {
-        if (passenger != null) return
+        if (passenger != null) { remPassenger() }
         passenger = player
         PacketSetPassengers(id, passenger).sendAll()
     }
 
     fun remPassenger() {
         PacketSetPassengers(id).sendAll()
-        val player = passenger ?: return
-        passenger = null
-
-        Utils.runSync {
-            player.teleport(loc.passengerCorrected())
+        passenger?.let { passenger ->
+            Utils.runSync {
+                passenger.teleport(loc.passengerCorrected())
+            }
         }
+        passenger = null
     }
 
     override fun correction(newLoc: Location) {
@@ -95,9 +103,9 @@ class Seat(
         super.remViewer(player)
     }
 
-    override fun destroy() {
+    override fun destroy(unregister: Boolean) {
         PacketSetPassengers(id).sendAll()
-        super.destroy()
+        super.destroy(unregister)
     }
 
     private fun Location.passengerCorrected(): Location {

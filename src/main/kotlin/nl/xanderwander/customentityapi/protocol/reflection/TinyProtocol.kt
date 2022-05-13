@@ -3,12 +3,9 @@ package nl.xanderwander.customentityapi.protocol.reflection
 import com.google.common.collect.MapMaker
 import io.netty.channel.*
 import net.minecraft.server.MinecraftServer
-import net.minecraft.server.level.ServerPlayer
-import net.minecraft.server.network.ServerConnectionListener
-import nl.xanderwander.customentityapi.Main
 import org.bukkit.Bukkit
-import org.bukkit.craftbukkit.v1_18_R2.CraftServer
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer
+import org.bukkit.craftbukkit.v1_18_R1.CraftServer
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority

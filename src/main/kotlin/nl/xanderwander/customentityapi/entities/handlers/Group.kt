@@ -6,7 +6,7 @@ import org.bukkit.entity.Player
 
 class Group(var loc: Location): Registrable<Group>() {
 
-    val entities = arrayListOf<Entity>()
+    val entities: ArrayList<Entity> = arrayListOf()
 
     override fun addViewer(player: Player) {
         entities.forEach { entity -> entity.addViewer(player) }
@@ -18,8 +18,9 @@ class Group(var loc: Location): Registrable<Group>() {
         super.remViewer(player)
     }
 
-    override fun pluginDisabled() {
-        entities.forEach { entity -> entity.destroy() }
+    override fun destroy(): Group {
+        entities.forEach { entity -> entity.destroy(false) }
+        return super.destroy()
     }
 
 }

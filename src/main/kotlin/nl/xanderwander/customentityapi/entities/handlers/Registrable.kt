@@ -8,17 +8,19 @@ abstract class Registrable<T: Registrable<T>> {
 
     val viewers: ArrayList<Player> = arrayListOf()
 
-    fun register(): T {
+    open fun register(): T {
         Main.entityManager.registry.add(this)
         return this as T
     }
 
-    fun unregister(): T {
+    open fun unregister(): T {
         Main.entityManager.registry.remove(this)
         return this as T
     }
 
-    open fun pluginDisabled() {}
+    open fun destroy(): T {
+        return this as T
+    }
 
     open fun addViewer(player: Player) {
         viewers.add(player)

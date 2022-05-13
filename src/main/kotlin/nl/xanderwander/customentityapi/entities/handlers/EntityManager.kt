@@ -1,14 +1,82 @@
 package nl.xanderwander.customentityapi.entities.handlers
 
+import net.minecraft.core.Rotations
 import nl.xanderwander.customentityapi.Main
 import nl.xanderwander.customentityapi.entities.Entity
+import nl.xanderwander.customentityapi.entities.Model
+import nl.xanderwander.customentityapi.entities.Seat
 import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 
 class EntityManager: BukkitRunnable() {
 
     val registry = arrayListOf<Registrable<*>>()
+
+    companion object {
+
+        fun createModel(
+            loc: Location,
+            name: String = "",
+            nameVisible: Boolean = false,
+            small: Boolean = false,
+            arms: Boolean = false,
+            basePlate: Boolean = false,
+            marker: Boolean = true,
+            visible: Boolean = false,
+            headRotation: Rotations = Rotations(0F, 0F, 0F),
+            mainHand: ItemStack = ItemStack(Material.AIR),
+            offHand: ItemStack = ItemStack(Material.AIR),
+            helmet: ItemStack = ItemStack(Material.AIR),
+            chestPlate: ItemStack = ItemStack(Material.AIR),
+            leggings: ItemStack = ItemStack(Material.AIR),
+            boots: ItemStack = ItemStack(Material.AIR)
+        ): Model {
+            return Model(
+                loc, name, nameVisible, small, arms, basePlate, marker, visible,
+                headRotation, mainHand, offHand, helmet, chestPlate, leggings, boots
+            ).register() as Model
+        }
+
+        fun createSeat(
+            loc: Location,
+            name: String = "",
+            nameVisible: Boolean = false,
+            small: Boolean = false,
+            arms: Boolean = false,
+            basePlate: Boolean = false,
+            marker: Boolean = true,
+            visible: Boolean = false,
+        ): Seat {
+            return Seat(
+                loc, name, nameVisible, small, arms, basePlate, marker, visible
+            ).register() as Seat
+        }
+
+        fun createGroup(
+            loc: Location,
+            vararg entities: Entity
+        ): Group {
+            return Group(loc).apply {
+                this.entities.addAll(entities)
+                register()
+            }
+        }
+
+        fun createRegion(
+            region: String,
+            vararg entities: Entity
+        ): Region {
+            return Region(region).apply {
+                this.entities.addAll(entities)
+                register()
+            }
+        }
+
+    }
 
     override fun run() {
         val players = Bukkit.getOnlinePlayers()
@@ -30,7 +98,7 @@ class EntityManager: BukkitRunnable() {
     }
 
     override fun cancel() {
-        registry.forEach { registrable -> registrable.pluginDisabled() }
+        registry.forEach { registrable -> registrable.unregister() }
         super.cancel()
     }
 
