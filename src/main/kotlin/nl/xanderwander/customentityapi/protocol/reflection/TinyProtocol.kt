@@ -4,8 +4,8 @@ import com.google.common.collect.MapMaker
 import io.netty.channel.*
 import net.minecraft.server.MinecraftServer
 import org.bukkit.Bukkit
-import org.bukkit.craftbukkit.v1_18_R1.CraftServer
-import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer
+import org.bukkit.craftbukkit.v1_18_R2.CraftServer
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -117,13 +117,11 @@ abstract class TinyProtocol(protected val plugin: Plugin) {
 
     @Suppress("UNCHECKED_CAST")
     private fun registerChannelHandler() {
-        val mcServer = getMinecraftServer[Bukkit.getServer()]!!
         val serverConnection = ((Bukkit.getServer() as CraftServer).server as MinecraftServer).connection!!
         networkManagers = serverConnection.connections
         val channelField = serverConnection::class.java.getDeclaredField("f")
         channelField.isAccessible = true
         val futures = channelField.get(serverConnection) as List<ChannelFuture>
-        //val futures: List<ChannelFuture> = Reflect.field(serverConnection, "f")
         createServerChannelHandler()
         synchronized(futures) {
             for (item in futures) {
@@ -274,32 +272,6 @@ abstract class TinyProtocol(protected val plugin: Plugin) {
 
     companion object {
         private val ID = AtomicInteger(0)
-        private val getPlayerHandle: Reflection.MethodInvoker =
-            Reflection.getMethod("{obc}.entity.CraftPlayer", "getHandle")
-        private val playerConnectionClass = Reflection.getUntypedClass("{nms.server.network}.PlayerConnection")
-        private val networkManagerClass = Reflection.getUntypedClass("{nms.network}.NetworkManager")
-        private val getConnection: Reflection.FieldAccessor<*> =
-            Reflection.getField("{nms.server.level}.EntityPlayer", null, playerConnectionClass)
-        private val getManager: Reflection.FieldAccessor<*> =
-            Reflection.getField(playerConnectionClass, null, networkManagerClass)
-        private val getChannel: Reflection.FieldAccessor<Channel> = Reflection.getField(
-            networkManagerClass,
-            Channel::class.java, 0
-        )
-        private val minecraftServerClass = Reflection.getUntypedClass("{nms.server}.MinecraftServer")
-        private val serverConnectionClass = Reflection.getUntypedClass("{nms.server.network}.ServerConnection")
-        private val getMinecraftServer: Reflection.FieldAccessor<*> =
-            Reflection.getField("{obc}.CraftServer", minecraftServerClass, 0)
-        private val getServerConnection: Reflection.FieldAccessor<*> =
-            Reflection.getField(minecraftServerClass, serverConnectionClass, 0)
-        private val getChannelFutures: Reflection.FieldAccessor<List<*>> = Reflection.getField(
-            serverConnectionClass,
-            List::class.java, 0
-        )
-        private val getNetworkMarkers: Reflection.FieldAccessor<List<*>> = Reflection.getField(
-            serverConnectionClass,
-            List::class.java, 1
-        )
         private val PACKET_LOGIN_IN_START = Reflection.getMinecraftClass("PacketLoginInStart", "network.protocol.login")
         private val gameProfileClass = Reflection.getClass("com.mojang.authlib.GameProfile")
         private val getGameProfile: Reflection.FieldAccessor<out Any> = Reflection.getField(

@@ -18,7 +18,7 @@ abstract class Registrable<T: Registrable<T>> {
         return this as T
     }
 
-    open fun destroy(): T {
+    open fun destroy(unregister: Boolean = true): T {
         return this as T
     }
 

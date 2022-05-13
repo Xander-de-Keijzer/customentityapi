@@ -18,9 +18,9 @@ class Group(var loc: Location): Registrable<Group>() {
         super.remViewer(player)
     }
 
-    override fun destroy(): Group {
-        entities.forEach { entity -> entity.destroy(false) }
-        return super.destroy()
+    override fun destroy(unregister: Boolean): Group {
+        entities.forEach { entity -> entity.destroy(unregister) }
+        return super.destroy(unregister)
     }
 
 }

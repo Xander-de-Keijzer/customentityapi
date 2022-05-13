@@ -41,7 +41,7 @@ repositories {
 dependencies {
 
     // Paperweight UserDev https://github.com/PaperMC/paperweight
-    paperDevBundle("1.18.1-R0.1-SNAPSHOT")
+    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
 
     // Netty dependency for channel injecting https://mvnrepository.com/artifact/io.netty/netty-all
     compileOnly("io.netty:netty-transport:4.1.76.Final")

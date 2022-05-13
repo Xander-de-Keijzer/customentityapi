@@ -11,7 +11,7 @@ class Utils {
             return square(this.x - loc.x) + square(this.y - loc.y) + square(this.z - loc.z)
         }
 
-        fun square(a: Double): Double {
+        private fun square(a: Double): Double {
             return a * a
         }
 
@@ -22,6 +22,15 @@ class Utils {
                 }
             }.runTask(Main.instance)
         }
+
+        fun runAfter(ticks: Long, f: () -> Unit) {
+            object : BukkitRunnable() {
+                override fun run() {
+                    f.invoke()
+                }
+            }.runTaskLater(Main.instance, ticks)
+        }
+
     }
 
 }

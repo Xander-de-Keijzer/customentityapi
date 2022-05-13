@@ -18,6 +18,7 @@ open class Entity(
     basePlate: Boolean = true,
     marker: Boolean = false,
     visible: Boolean = true,
+    glowing: Boolean = false,
     headRotation: Rotations = Rotations(0F, 0F, 0F),
 ): Registrable<Entity>() {
 
@@ -35,6 +36,8 @@ open class Entity(
     var marker = marker
         set(value) { field = value; updateSettings() }
     var visible = visible
+        set(value) { field = value; updateSettings() }
+    var glowing = glowing
         set(value) { field = value; updateSettings() }
     var headRotation = headRotation
         set(value) { field = value; updateSettings() }
@@ -73,10 +76,11 @@ open class Entity(
         PacketRemoveMob(this).send(player)
     }
 
-    open fun destroy(unregister: Boolean = true) {
+    override fun destroy(unregister: Boolean): Entity {
         viewers.forEach { viewer -> PacketRemoveMob(this).send(viewer) }
         viewers.clear()
         if (unregister) unregister()
+        return this
     }
 
     private fun updateSettings() {

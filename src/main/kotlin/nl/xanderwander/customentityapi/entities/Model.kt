@@ -2,7 +2,6 @@ package nl.xanderwander.customentityapi.entities
 
 import net.minecraft.core.Rotations
 import nl.xanderwander.customentityapi.packets.PacketSetEquipment
-import nl.xanderwander.customentityapi.packets.PacketSetPassengers
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -17,6 +16,7 @@ class Model(
     basePlate: Boolean = false,
     marker: Boolean = true,
     visible: Boolean = false,
+    glowing: Boolean = false,
     headRotation: Rotations = Rotations(0F, 0F, 0F),
     mainHand: ItemStack = ItemStack(Material.AIR),
     offHand: ItemStack = ItemStack(Material.AIR),
@@ -24,7 +24,7 @@ class Model(
     chestPlate: ItemStack = ItemStack(Material.AIR),
     leggings: ItemStack = ItemStack(Material.AIR),
     boots: ItemStack = ItemStack(Material.AIR),
-): Entity(loc, name, nameVisible, small, arms, basePlate, marker, visible, headRotation) {
+): Entity(loc, name, nameVisible, small, arms, basePlate, marker, visible, glowing, headRotation) {
 
     var mainHand: ItemStack = mainHand
         set(value) { field = value; updateEquipment() }

@@ -27,6 +27,7 @@ class EntityManager: BukkitRunnable() {
             basePlate: Boolean = false,
             marker: Boolean = true,
             visible: Boolean = false,
+            glowing: Boolean = false,
             headRotation: Rotations = Rotations(0F, 0F, 0F),
             mainHand: ItemStack = ItemStack(Material.AIR),
             offHand: ItemStack = ItemStack(Material.AIR),
@@ -36,7 +37,7 @@ class EntityManager: BukkitRunnable() {
             boots: ItemStack = ItemStack(Material.AIR)
         ): Model {
             return Model(
-                loc, name, nameVisible, small, arms, basePlate, marker, visible,
+                loc, name, nameVisible, small, arms, basePlate, marker, visible, glowing,
                 headRotation, mainHand, offHand, helmet, chestPlate, leggings, boots
             ).register() as Model
         }
@@ -50,9 +51,10 @@ class EntityManager: BukkitRunnable() {
             basePlate: Boolean = false,
             marker: Boolean = true,
             visible: Boolean = false,
+            glowing: Boolean = false,
         ): Seat {
             return Seat(
-                loc, name, nameVisible, small, arms, basePlate, marker, visible
+                loc, name, nameVisible, small, arms, basePlate, marker, visible, glowing
             ).register() as Seat
         }
 
@@ -98,7 +100,7 @@ class EntityManager: BukkitRunnable() {
     }
 
     override fun cancel() {
-        registry.forEach { registrable -> registrable.unregister() }
+        registry.forEach { registrable -> registrable.destroy(false) }
         super.cancel()
     }
 

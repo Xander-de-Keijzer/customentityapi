@@ -2,17 +2,14 @@ package nl.xanderwander.customentityapi.entities
 
 import net.minecraft.core.Rotations
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket
-import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket
 import net.minecraft.network.protocol.game.ServerboundInteractPacket
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
-import net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket
 import net.minecraft.network.protocol.game.ServerboundPlayerInputPacket
 import nl.xanderwander.customentityapi.Main
 import nl.xanderwander.customentityapi.packets.PacketSetPassengers
 import nl.xanderwander.customentityapi.utils.Utils
 import org.bukkit.Location
 import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitRunnable
 
 class Seat(
     loc: Location,
@@ -23,8 +20,9 @@ class Seat(
     basePlate: Boolean = false,
     marker: Boolean = false,
     visible: Boolean = false,
+    glowing: Boolean = false,
     headRotation: Rotations = Rotations(0F, 0F, 0F),
-): Entity(loc, name, nameVisible, small, arms, basePlate, marker, visible, headRotation) {
+): Entity(loc, name, nameVisible, small, arms, basePlate, marker, visible, glowing, headRotation) {
 
     private var passenger: Player? = null
     private var passengerYaw = 0f
@@ -103,9 +101,10 @@ class Seat(
         super.remViewer(player)
     }
 
-    override fun destroy(unregister: Boolean) {
+    override fun destroy(unregister: Boolean): Entity {
         PacketSetPassengers(id).sendAll()
         super.destroy(unregister)
+        return this
     }
 
     private fun Location.passengerCorrected(): Location {
