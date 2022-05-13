@@ -4,7 +4,7 @@ import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 plugins {
     `java-library`
     `maven-publish`
-    kotlin("jvm") version "1.6.20-M1"
+    kotlin("jvm") version "1.6.21"
     id("io.papermc.paperweight.userdev") version "1.3.6"
     id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
 }

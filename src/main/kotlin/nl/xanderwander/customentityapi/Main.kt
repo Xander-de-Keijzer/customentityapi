@@ -1,7 +1,9 @@
 package nl.xanderwander.customentityapi
 
 import net.minecraft.core.Rotations
+import nl.xanderwander.customentityapi.entities.Model
 import nl.xanderwander.customentityapi.entities.handlers.EntityManager
+import nl.xanderwander.customentityapi.entities.handlers.Group
 import nl.xanderwander.customentityapi.utils.WorldGuardHook
 import nl.xanderwander.customentityapi.protocol.PacketProtocol
 import nl.xanderwander.customentityapi.utils.Utils
@@ -60,16 +62,20 @@ class Main: JavaPlugin() {
         if (sender is Player && args.isNotEmpty() && args[0] == "test") {
 
             val loc = sender.location
-            val model = EntityManager.createModel(loc, helmet = ItemStack(Material.STONE))
-            val model2 = EntityManager.createModel(loc.clone().add(0.0, 1.0, 1.0),
+            val model = Model(loc, helmet = ItemStack(Material.STONE))
+            val model2 = Model(loc.clone().add(0.0, 1.0, 1.0),
                 helmet = ItemStack(Material.STONE), visible = true, basePlate = true,
                 arms = true, small = true, name = "test", nameVisible = true,
                 headRotation = Rotations(0.0f, 1.0f, 0.0f), glowing = true
             )
+            val group = EntityManager.createGroup(loc, model)
+
+            Utils.runAfter(50) {
+                group.addEntity(model2)
+            }
 
             Utils.runAfter(100) {
-                model.destroy()
-                model2.destroy()
+                group.destroy()
             }
 
         }
