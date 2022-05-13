@@ -63,7 +63,7 @@ class EntityManager: BukkitRunnable() {
             vararg entities: Entity
         ): Group {
             return Group(loc).apply {
-                this.entities.addAll(entities)
+                addEntities(entities)
                 register()
             }
         }
@@ -73,7 +73,7 @@ class EntityManager: BukkitRunnable() {
             vararg entities: Entity
         ): Region {
             return Region(region).apply {
-                this.entities.addAll(entities)
+                addEntities(entities)
                 register()
             }
         }
