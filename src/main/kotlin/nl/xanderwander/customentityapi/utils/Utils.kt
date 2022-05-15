@@ -31,6 +31,15 @@ class Utils {
             }.runTaskLater(Main.instance, ticks)
         }
 
+        fun runCounted(delay: Long, period: Long, f: (Int) -> Unit) {
+            var count = 0
+            object : BukkitRunnable() {
+                override fun run() {
+                    f.invoke(count++)
+                }
+            }.runTaskTimer(Main.instance, delay, period)
+        }
+
     }
 
 }

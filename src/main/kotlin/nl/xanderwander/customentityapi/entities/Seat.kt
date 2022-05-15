@@ -9,6 +9,7 @@ import nl.xanderwander.customentityapi.Main
 import nl.xanderwander.customentityapi.packets.PacketSetPassengers
 import nl.xanderwander.customentityapi.utils.Utils
 import org.bukkit.Location
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer
 import org.bukkit.entity.Player
 
 class Seat(
@@ -28,6 +29,9 @@ class Seat(
     private var passengerYaw = 0f
     private var passengerPitch = 0f
 
+    var allowEnter = true
+    var allowExit = true
+
     init {
 
         Main.protocol.onInPacket onInPacket@ { container ->
@@ -37,13 +41,13 @@ class Seat(
 
             // Entity click listener
             if (packet is ServerboundInteractPacket) {
-                if (packet.entityId == id) setPassenger(player)
+                if (packet.entityId == id && allowEnter) setPassenger(player)
             }
 
             // Entity dismount listener
             if (packet is ServerboundPlayerInputPacket) {
                 if (player == passenger) {
-                    if (packet.isShiftKeyDown) remPassenger()
+                    if (packet.isShiftKeyDown && allowExit) remPassenger()
                 }
             }
 
@@ -84,7 +88,9 @@ class Seat(
     override fun correction(newLoc: Location) {
         passenger?.let { passenger ->
             Utils.runSync {
-                passenger.teleport(newLoc.passengerCorrected())
+                val l = newLoc.passengerCorrected()
+                (passenger as CraftPlayer).handle.setPosRaw(l.x, l.y, l.z, true)
+                //passenger.teleport(newLoc.passengerCorrected())
                 PacketSetPassengers(id, passenger).sendAll()
             }
         }
@@ -102,7 +108,7 @@ class Seat(
     }
 
     override fun destroy(unregister: Boolean): Entity {
-        PacketSetPassengers(id).sendAll()
+        remPassenger()
         super.destroy(unregister)
         return this
     }

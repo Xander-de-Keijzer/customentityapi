@@ -48,7 +48,7 @@ open class Entity(
 
     fun moveTo(newLoc: Location) {
         if (newLoc == loc) return
-        if (loc.distSqr(newLoc) > 49 /*7*/ || correctionCount > 60 || newLoc.distSqr(lastCorrectLocation) * 2 > Main.VD_SQR) {
+        if (loc.distSqr(newLoc) > 49 /*7*/ || correctionCount > 60 || loc.distSqr(lastCorrectLocation) > 100 /*10*/) {
             correction(newLoc)
             correctionCount = 0
         } else {

@@ -1,11 +1,13 @@
 package nl.xanderwander.customentityapi.entities.handlers
 
 import nl.xanderwander.customentityapi.Main
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 @Suppress("UNCHECKED_CAST")
 abstract class Registrable<T: Registrable<T>> {
 
+    var onlinePlayers: () -> MutableCollection<out Player> = { Bukkit.getOnlinePlayers() }
     val viewers: ArrayList<Player> = arrayListOf()
 
     open fun register(): T {

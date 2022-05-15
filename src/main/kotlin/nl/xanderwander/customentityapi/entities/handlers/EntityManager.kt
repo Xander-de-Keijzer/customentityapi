@@ -18,61 +18,11 @@ class EntityManager: BukkitRunnable() {
 
     companion object {
 
-        fun createModel(
-            loc: Location,
-            name: String = "",
-            nameVisible: Boolean = false,
-            small: Boolean = false,
-            arms: Boolean = false,
-            basePlate: Boolean = false,
-            marker: Boolean = true,
-            visible: Boolean = false,
-            glowing: Boolean = false,
-            headRotation: Rotations = Rotations(0F, 0F, 0F),
-            mainHand: ItemStack = ItemStack(Material.AIR),
-            offHand: ItemStack = ItemStack(Material.AIR),
-            helmet: ItemStack = ItemStack(Material.AIR),
-            chestPlate: ItemStack = ItemStack(Material.AIR),
-            leggings: ItemStack = ItemStack(Material.AIR),
-            boots: ItemStack = ItemStack(Material.AIR)
-        ): Model {
-            return Model(
-                loc, name, nameVisible, small, arms, basePlate, marker, visible, glowing,
-                headRotation, mainHand, offHand, helmet, chestPlate, leggings, boots
-            ).register() as Model
-        }
-
-        fun createSeat(
-            loc: Location,
-            name: String = "",
-            nameVisible: Boolean = false,
-            small: Boolean = false,
-            arms: Boolean = false,
-            basePlate: Boolean = false,
-            marker: Boolean = true,
-            visible: Boolean = false,
-            glowing: Boolean = false,
-        ): Seat {
-            return Seat(
-                loc, name, nameVisible, small, arms, basePlate, marker, visible, glowing
-            ).register() as Seat
-        }
-
         fun createGroup(
             loc: Location,
             vararg entities: Entity
         ): Group {
             return Group(loc).apply {
-                addEntities(entities)
-                register()
-            }
-        }
-
-        fun createRegion(
-            region: String,
-            vararg entities: Entity
-        ): Region {
-            return Region(region).apply {
                 addEntities(entities)
                 register()
             }
@@ -86,7 +36,7 @@ class EntityManager: BukkitRunnable() {
         players.forEach { player ->
             for (registered in registry) {
                 when(registered) {
-                    is Group  -> update(player, registered, player.location.distanceSquared(registered.loc) < Main.VD_SQR)
+                    is Group  -> update(player, registered, player.location.distanceSquared(registered.getLocation()) < Main.VD_SQR)
                     is Entity -> update(player, registered, player.location.distanceSquared(registered.loc) < Main.VD_SQR)
                     is Region -> {
                         val region = Main.worldGuard.getRegion(registered.region) ?: continue
