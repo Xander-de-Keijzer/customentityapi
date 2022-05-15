@@ -12,11 +12,12 @@ plugins {
 val baseAuthor: String by project
 val baseName: String by project
 val baseVersion: String by project
+val mcVersion: String by project
 val author = baseAuthor.toLowerCase()
 val name = baseName.toLowerCase()
 
 group = "nl.$author.$name"
-version = baseVersion
+version = "$baseVersion-$mcVersion"
 
 bukkit {
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
@@ -41,7 +42,7 @@ repositories {
 dependencies {
 
     // Paperweight UserDev https://github.com/PaperMC/paperweight
-    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
+    paperDevBundle("${mcVersion}-R0.1-SNAPSHOT")
 
     // Netty dependency for channel injecting https://mvnrepository.com/artifact/io.netty/netty-all
     compileOnly("io.netty:netty-transport:4.1.76.Final")

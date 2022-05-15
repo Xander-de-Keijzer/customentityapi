@@ -1,7 +1,6 @@
 package nl.xanderwander.customentityapi.entities
 
 import net.minecraft.core.Rotations
-import nl.xanderwander.customentityapi.Main
 import nl.xanderwander.customentityapi.entities.handlers.Registrable
 import nl.xanderwander.customentityapi.packets.*
 import nl.xanderwander.customentityapi.utils.Utils.Companion.distSqr

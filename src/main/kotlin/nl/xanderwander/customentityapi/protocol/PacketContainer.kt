@@ -1,4 +1,4 @@
-package nl.xanderwander.customentityapi.protocol.objects
+package nl.xanderwander.customentityapi.protocol
 
 import org.bukkit.entity.Player
 

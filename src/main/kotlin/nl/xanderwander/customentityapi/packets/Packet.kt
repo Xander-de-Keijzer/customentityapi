@@ -6,7 +6,6 @@ import net.minecraft.network.protocol.Packet
 import nl.xanderwander.customentityapi.Main
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import org.bukkit.util.EulerAngle
 
 abstract class Packet {
 

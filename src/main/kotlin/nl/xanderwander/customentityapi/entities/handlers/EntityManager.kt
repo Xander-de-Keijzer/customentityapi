@@ -1,15 +1,10 @@
 package nl.xanderwander.customentityapi.entities.handlers
 
-import net.minecraft.core.Rotations
 import nl.xanderwander.customentityapi.Main
 import nl.xanderwander.customentityapi.entities.Entity
-import nl.xanderwander.customentityapi.entities.Model
-import nl.xanderwander.customentityapi.entities.Seat
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.Material
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 
 class EntityManager: BukkitRunnable() {

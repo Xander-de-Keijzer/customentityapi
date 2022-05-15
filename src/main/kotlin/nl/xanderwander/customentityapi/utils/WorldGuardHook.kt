@@ -3,7 +3,7 @@ package nl.xanderwander.customentityapi.utils
 import com.sk89q.worldguard.protection.regions.ProtectedRegion
 import com.sk89q.worldguard.protection.regions.RegionContainer
 import nl.xanderwander.customentityapi.Main
-import nl.xanderwander.customentityapi.protocol.reflection.Reflection
+import protocol.Reflection
 
 class WorldGuardHook {
 

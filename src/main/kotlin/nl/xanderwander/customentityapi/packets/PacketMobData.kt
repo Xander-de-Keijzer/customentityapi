@@ -8,7 +8,7 @@ import net.minecraft.network.syncher.EntityDataSerializer
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.world.entity.decoration.ArmorStand
 import nl.xanderwander.customentityapi.entities.Entity
-import nl.xanderwander.customentityapi.protocol.reflection.Reflection
+import protocol.Reflection
 import java.util.*
 
 class PacketMobData(

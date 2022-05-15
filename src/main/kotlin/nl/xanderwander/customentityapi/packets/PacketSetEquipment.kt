@@ -3,11 +3,10 @@ package nl.xanderwander.customentityapi.packets
 import com.mojang.datafixers.util.Pair
 import net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket
 import net.minecraft.world.entity.EquipmentSlot
-import nl.xanderwander.customentityapi.entities.Entity
 import nl.xanderwander.customentityapi.entities.Model
-import nl.xanderwander.customentityapi.protocol.reflection.Reflection
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import protocol.Reflection
 
 class PacketSetEquipment(
     entityID: Int,
