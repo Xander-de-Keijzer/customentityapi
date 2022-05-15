@@ -4,8 +4,6 @@ import com.google.common.collect.MapMaker
 import io.netty.channel.*
 import net.minecraft.server.MinecraftServer
 import org.bukkit.Bukkit
-import org.bukkit.craftbukkit.v1_18_R2.CraftServer
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -117,7 +115,7 @@ abstract class TinyProtocol(protected val plugin: Plugin) {
 
     @Suppress("UNCHECKED_CAST")
     private fun registerChannelHandler() {
-        val serverConnection = ((Bukkit.getServer() as CraftServer).server as MinecraftServer).connection!!
+        val serverConnection = BukkitReflection.server().connection!!
         networkManagers = serverConnection.connections
         val channelField = serverConnection::class.java.getDeclaredField("f")
         channelField.isAccessible = true
@@ -200,7 +198,7 @@ abstract class TinyProtocol(protected val plugin: Plugin) {
     fun getChannel(player: Player): Channel {
         var channel = channelLookup[player.name]
         if (channel == null) {
-            (player as CraftPlayer).handle.connection.connection.channel.let {
+            BukkitReflection.handle(player).connection.connection.channel.let {
                 channelLookup[player.name] = it
                 channel = it
             }

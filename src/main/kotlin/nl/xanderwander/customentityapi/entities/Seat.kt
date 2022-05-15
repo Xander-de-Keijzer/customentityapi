@@ -7,9 +7,9 @@ import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
 import net.minecraft.network.protocol.game.ServerboundPlayerInputPacket
 import nl.xanderwander.customentityapi.Main
 import nl.xanderwander.customentityapi.packets.PacketSetPassengers
+import nl.xanderwander.customentityapi.protocol.reflection.BukkitReflection
 import nl.xanderwander.customentityapi.utils.Utils
 import org.bukkit.Location
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer
 import org.bukkit.entity.Player
 
 class Seat(
@@ -89,7 +89,7 @@ class Seat(
         passenger?.let { passenger ->
             Utils.runSync {
                 val l = newLoc.passengerCorrected()
-                (passenger as CraftPlayer).handle.setPosRaw(l.x, l.y, l.z, true)
+                BukkitReflection.handle(passenger).setPosRaw(l.x, l.y, l.z, true)
                 //passenger.teleport(newLoc.passengerCorrected())
                 PacketSetPassengers(id, passenger).sendAll()
             }
