@@ -21,6 +21,7 @@ version = "$baseVersion-$mcVersion"
 
 bukkit {
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
+    name = baseName
     main = "$group.Main"
     apiVersion = "1.18"
     authors = listOf(baseAuthor)
