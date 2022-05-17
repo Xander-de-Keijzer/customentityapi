@@ -1,5 +1,6 @@
 package nl.xanderwander.customentityapi.entities.handlers
 
+import net.minecraft.network.protocol.game.ClientboundClearTitlesPacket
 import nl.xanderwander.customentityapi.Main
 import nl.xanderwander.customentityapi.entities.Entity
 import org.bukkit.Bukkit

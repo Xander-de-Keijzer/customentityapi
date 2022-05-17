@@ -6,6 +6,7 @@ import nl.xanderwander.customentityapi.entities.Seat
 import nl.xanderwander.customentityapi.entities.handlers.EntityManager
 import nl.xanderwander.customentityapi.utils.WorldGuardHook
 import nl.xanderwander.customentityapi.protocol.PacketProtocol
+import nl.xanderwander.customentityapi.protocol.ServerInjector
 import nl.xanderwander.customentityapi.utils.Utils
 import org.bukkit.ChatColor
 import org.bukkit.Location
@@ -23,6 +24,7 @@ class Main: JavaPlugin() {
     companion object {
         lateinit var instance: Main
         lateinit var protocol: PacketProtocol
+        lateinit var injector: ServerInjector
         val entityManager = EntityManager()
         val worldGuard = WorldGuardHook()
 
@@ -34,6 +36,7 @@ class Main: JavaPlugin() {
 
         instance = this
         protocol = PacketProtocol(instance)
+        injector = ServerInjector()
         entityManager.runTaskTimer(instance, 0L, 1L)
         worldGuard.load()
 
