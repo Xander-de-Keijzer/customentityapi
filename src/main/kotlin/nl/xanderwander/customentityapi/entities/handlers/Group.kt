@@ -53,4 +53,6 @@ class Group(
         entities.clear()
     }
 
+    fun hasEntity(entity: Entity): Boolean = entities.contains(entity)
+
 }

@@ -16,6 +16,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.util.Vector
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -70,7 +71,7 @@ class Main: JavaPlugin() {
 
             val loc = sender.location.clone()
             val model = Model(loc.clone().add(1.0, 0.0, 0.0), helmet = ItemStack(Material.STONE))
-            val model2 = Model(loc.clone().add(1.0, 1.0, 1.0), "test", true, true, true, true, false, true, true, Rotations(0.0F, 90.0F, 0.0F))
+            val model2 = Model(loc.clone().add(1.0, 1.0, 1.0), "test", true, true, true, true, false, true, true, Vector(0.0F, 90.0F, 0.0F))
             val seat = Seat(loc.clone().add(1.0, 0.0, 2.0), visible = true)
 
             sender.sendMessage("${ChatColor.BLUE}[CEA] ${ChatColor.GRAY}Entity info:")
