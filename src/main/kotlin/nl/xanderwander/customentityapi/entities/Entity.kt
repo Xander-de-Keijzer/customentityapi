@@ -6,6 +6,7 @@ import nl.xanderwander.customentityapi.packets.*
 import nl.xanderwander.customentityapi.utils.Utils.Companion.distSqr
 import org.bukkit.Location
 import org.bukkit.entity.Player
+import org.bukkit.util.Vector
 import kotlin.random.Random
 
 open class Entity(
@@ -18,7 +19,7 @@ open class Entity(
     marker: Boolean = false,
     visible: Boolean = true,
     glowing: Boolean = false,
-    headRotation: Rotations = Rotations(0F, 0F, 0F),
+    headRotation: Vector = Vector(0F, 0F, 0F),
 ): Registrable<Entity>() {
 
     var loc = loc.clone()

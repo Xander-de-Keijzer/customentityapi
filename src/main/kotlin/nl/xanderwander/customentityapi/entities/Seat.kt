@@ -10,6 +10,7 @@ import nl.xanderwander.customentityapi.packets.PacketSetPassengers
 import nl.xanderwander.customentityapi.utils.Utils
 import org.bukkit.Location
 import org.bukkit.entity.Player
+import org.bukkit.util.Vector
 
 class Seat(
     loc: Location,
@@ -21,7 +22,7 @@ class Seat(
     marker: Boolean = false,
     visible: Boolean = false,
     glowing: Boolean = false,
-    headRotation: Rotations = Rotations(0F, 0F, 0F),
+    headRotation: Vector = Vector(0F, 0F, 0F),
 ): Entity(loc, name, nameVisible, small, arms, basePlate, marker, visible, glowing, headRotation) {
 
     private var passenger: Player? = null

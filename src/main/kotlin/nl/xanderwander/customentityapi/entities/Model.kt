@@ -6,6 +6,7 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.util.Vector
 
 class Model(
     loc: Location,
@@ -17,7 +18,7 @@ class Model(
     marker: Boolean = true,
     visible: Boolean = false,
     glowing: Boolean = false,
-    headRotation: Rotations = Rotations(0F, 0F, 0F),
+    headRotation: Vector = Vector(0F, 0F, 0F),
     mainHand: ItemStack = ItemStack(Material.AIR),
     offHand: ItemStack = ItemStack(Material.AIR),
     helmet: ItemStack = ItemStack(Material.AIR),

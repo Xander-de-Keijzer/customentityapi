@@ -24,7 +24,9 @@ class PacketMobData(
     headRotation: Rotations = Rotations(0F, 0F, 0F)
 ): Packet() {
 
-    constructor(entity: Entity) : this(entity.id, entity.name, entity.nameVisible, entity.small, entity.arms, entity.basePlate, entity.marker, entity.visible, entity.glowing, entity.headRotation)
+    constructor(entity: Entity) : this(entity.id, entity.name, entity.nameVisible, entity.small, entity.arms, entity.basePlate, entity.marker, entity.visible, entity.glowing,
+    Rotations(entity.headRotation.x.toFloat(), entity.headRotation.y.toFloat(), entity.headRotation.z.toFloat())
+    )
 
     private val byteArmorStand = (if (small) 1 else 0) + (if (arms) 4 else 0) + (if (!basePlate) 8 else 0) + (if (marker) 16 else 0)
     private val byteEntity = (if (!visible) 32 else 0) + (if (glowing) 64 else 0)
