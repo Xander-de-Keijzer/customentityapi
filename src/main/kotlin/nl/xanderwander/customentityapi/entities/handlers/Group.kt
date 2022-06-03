@@ -44,4 +44,13 @@ class Group(
         viewers.forEach { viewer -> entity.remViewer(viewer) }
     }
 
+    fun remEntities() {
+        entities.forEach { entity ->
+            viewers.forEach { viewer ->
+                entity.remViewer(viewer)
+            }
+        }
+        entities.clear()
+    }
+
 }
