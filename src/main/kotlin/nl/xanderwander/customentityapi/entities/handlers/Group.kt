@@ -7,7 +7,7 @@ import org.bukkit.entity.Player
 class Group(
     var loc: Location,
     var onLocation: (() -> Location)? = null,
-    private val entities: ArrayList<Entity> = arrayListOf(),
+    val entities: ArrayList<Entity> = arrayListOf(),
 ): Registrable<Group>() {
 
     override fun addViewer(player: Player) {
@@ -22,6 +22,7 @@ class Group(
 
     override fun destroy(unregister: Boolean): Group {
         entities.forEach { entity -> entity.destroy(unregister) }
+        if (unregister) unregister()
         return super.destroy(unregister)
     }
 
@@ -52,7 +53,5 @@ class Group(
         }
         entities.clear()
     }
-
-    fun hasEntity(entity: Entity): Boolean = entities.contains(entity)
 
 }

@@ -27,6 +27,7 @@ class Region(
 
     override fun destroy(unregister: Boolean): Region {
         entities.forEach { entity -> entity.destroy(unregister) }
+        if (unregister) unregister()
         return super.destroy(unregister)
     }
 
