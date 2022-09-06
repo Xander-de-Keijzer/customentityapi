@@ -1,13 +1,13 @@
 package nl.xanderwander.customentityapi
 
-import net.minecraft.core.Rotations
+import net.minecraft.world.entity.player.ProfilePublicKey
 import nl.xanderwander.customentityapi.entities.Model
 import nl.xanderwander.customentityapi.entities.Seat
 import nl.xanderwander.customentityapi.entities.handlers.EntityManager
-import nl.xanderwander.customentityapi.utils.WorldGuardHook
 import nl.xanderwander.customentityapi.protocol.PacketProtocol
 import nl.xanderwander.customentityapi.protocol.ServerInjector
 import nl.xanderwander.customentityapi.utils.Utils
+import nl.xanderwander.customentityapi.utils.WorldGuardHook
 import org.bukkit.ChatColor
 import org.bukkit.Location
 import org.bukkit.Material
@@ -17,6 +17,8 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.util.Vector
+import protocol.Reflection
+import java.lang.reflect.ParameterizedType
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -50,7 +52,7 @@ class Main: JavaPlugin() {
 
     override fun onDisable() {
 
-        entityManager.cancel()
+        if (!entityManager.isCancelled) entityManager.cancel()
         protocol.close()
 
         logger.info("${description.name} has been disabled.")

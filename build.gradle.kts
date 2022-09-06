@@ -5,12 +5,13 @@ plugins {
     `java-library`
     `maven-publish`
     kotlin("jvm") version "1.6.21"
-    id("io.papermc.paperweight.userdev") version "1.3.6"
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
+    id("io.papermc.paperweight.userdev") version "1.3.7"
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
 }
 
 val baseAuthor: String by project
 val baseName: String by project
+val minimumApiVersion: String by project
 val baseVersion: String by project
 val mcVersion: String by project
 val author = baseAuthor.toLowerCase()
@@ -23,7 +24,7 @@ bukkit {
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     name = baseName
     main = "$group.Main"
-    apiVersion = "1.18"
+    apiVersion = minimumApiVersion
     authors = listOf(baseAuthor)
     depend = listOf("KotlinLib")
     commands {
@@ -46,7 +47,7 @@ dependencies {
     paperDevBundle("${mcVersion}-R0.1-SNAPSHOT")
 
     // Netty dependency for channel injecting https://mvnrepository.com/artifact/io.netty/netty-all
-    compileOnly("io.netty:netty-transport:4.1.76.Final")
+    compileOnly("io.netty:netty-transport:4.1.77.Final")
 
     // WorldGuard integration https://github.com/EngineHub/WorldGuard
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.7")

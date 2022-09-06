@@ -3,6 +3,9 @@ package protocol;
 import com.google.common.collect.MapMaker;
 import com.mojang.authlib.GameProfile;
 import io.netty.channel.*;
+import net.minecraft.network.protocol.login.ClientboundCustomQueryPacket;
+import net.minecraft.network.protocol.login.ClientboundHelloPacket;
+import nl.xanderwander.customentityapi.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,7 +44,7 @@ public abstract class TinyProtocol {
 	private static final FieldAccessor<List> getChannelFutures = Reflection.getField(serverConnectionClass, List.class, 0);
 	private static final FieldAccessor<List> getNetworkMarkers = Reflection.getField(serverConnectionClass, List.class, 1);
 	private static final Class<?> PACKET_LOGIN_IN_START = Reflection.getMinecraftClass("PacketLoginInStart", "network.protocol.login");
-	private static final FieldAccessor<GameProfile> getGameProfile = Reflection.getField(PACKET_LOGIN_IN_START, GameProfile.class, 0);
+	private static final FieldAccessor<String> getPlayerName = Reflection.getField(PACKET_LOGIN_IN_START, String.class, 0);
 	private final Map<String, Channel> channelLookup = new MapMaker().weakValues().makeMap();
 	private Listener listener;
 	private final Set<Channel> uninjectedChannels = Collections.newSetFromMap(new MapMaker().weakKeys().makeMap());
@@ -272,8 +275,8 @@ public abstract class TinyProtocol {
 		
 		private void handleLoginStart(Channel channel, Object packet) {
 			if (PACKET_LOGIN_IN_START.isInstance(packet)) {
-				GameProfile profile = getGameProfile.get(packet);
-				channelLookup.put(profile.getName(), channel);
+				String name = getPlayerName.get(packet);
+				channelLookup.put(name, channel);
 			}
 		}
 	}

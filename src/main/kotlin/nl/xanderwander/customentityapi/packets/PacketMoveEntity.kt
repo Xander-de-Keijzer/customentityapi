@@ -11,14 +11,15 @@ class PacketMoveEntity(entityID: Int, origin: Location, target: Location): Packe
         val z = (target.z * 32 - origin.z * 32) * 128
         val yaw = (target.yaw * 256.0) / 360.0
         val pitch = (target.pitch * 256.0) / 360.0
-        buf.writeVarInt(entityID)
-            .writeShort(x.toInt())
-            .writeShort(y.toInt())
-            .writeShort(z.toInt())
-            .writeByte(yaw.toInt())
-            .writeByte(pitch.toInt())
-            .writeBoolean(false)
-        super.packet = ClientboundMoveEntityPacket.PosRot.read(buf)
+        super.packet = ClientboundMoveEntityPacket.PosRot(
+            entityID,
+            x.toInt().toShort(),
+            y.toInt().toShort(),
+            z.toInt().toShort(),
+            yaw.toInt().toByte(),
+            pitch.toInt().toByte(),
+            false
+        )
     }
 
 }
